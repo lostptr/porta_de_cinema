@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.savi.portadecinema.R
-import com.savi.portadecinema.models.Movie
+import com.savi.portadecinema.models.MovieOutline
 
-class MovieAdapter(private val movies: List<Movie>) :
+class MovieAdapter(private val movies: List<MovieOutline>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieOutline) {
             val textViewTitle = view.findViewById<TextView>(R.id.movie_card_title)
             val textViewOverview = view.findViewById<TextView>(R.id.movie_card_overview)
             val textViewRating = view.findViewById<TextView>(R.id.movie_card_rating)

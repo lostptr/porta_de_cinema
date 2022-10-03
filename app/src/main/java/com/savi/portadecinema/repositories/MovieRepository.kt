@@ -3,7 +3,6 @@ package com.savi.portadecinema.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.savi.portadecinema.models.Movie
 import com.savi.portadecinema.services.tmdb.TmdbService
 import com.savi.portadecinema.services.tmdb.models.MovieList
 import retrofit2.Call
