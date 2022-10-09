@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/savi/dev/porta_de_cinema/app/src/main/res/drawable/poster_gradient.xml" value="0.101" />
+        <entry key="..\:/Users/savi/dev/porta_de_cinema/app/src/main/res/layout-v26/activity_details.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/savi/dev/porta_de_cinema/app/src/main/res/layout/activity_details.xml" value="0.1636645962732919" />
         <entry key="..\:/Users/savi/dev/porta_de_cinema/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/Users/savi/dev/porta_de_cinema/app/src/main/res/layout/movie_list_item.xml" value="0.27447916666666666" />
       </map>

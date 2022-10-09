@@ -1,16 +1,21 @@
 package com.savi.portadecinema.services.tmdb
 
-import com.savi.portadecinema.services.tmdb.models.MovieList
+import com.savi.portadecinema.services.tmdb.dto.MovieDetailsDto
+import com.savi.portadecinema.services.tmdb.dto.MoviePageDto
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbService {
 
     @GET("movie/popular?api_key=$apikey&language=$language")
-    fun getPopularMovies(@Query("page") page: Int): Call<MovieList>
+    fun getPopularMovies(@Query("page") page: Int): Call<MoviePageDto>
+
+    @GET("movie/{id}?api_key=$apikey&language=$language")
+    fun getMovieDetails(@Path("id") id: Int): Call<MovieDetailsDto>
 
     companion object {
         const val apikey = "67175cb48e9814a9bc2b95df0baa4f84"

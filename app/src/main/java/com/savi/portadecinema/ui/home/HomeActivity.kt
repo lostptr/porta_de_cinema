@@ -2,11 +2,8 @@ package com.savi.portadecinema.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.savi.portadecinema.databinding.ActivityHomeBinding
-import com.savi.portadecinema.models.Movie
 import com.savi.portadecinema.repositories.MovieRepository
 import com.savi.portadecinema.services.tmdb.TmdbService
 

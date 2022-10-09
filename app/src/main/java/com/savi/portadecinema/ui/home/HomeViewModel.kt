@@ -3,14 +3,14 @@ package com.savi.portadecinema.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
-import com.savi.portadecinema.models.Movie
+import com.savi.portadecinema.models.MovieOutline
 import com.savi.portadecinema.repositories.MovieRepository
 
 class HomeViewModel(private val movieRepository: MovieRepository) : ViewModel() {
-    fun getPopularMovies(page: Int): LiveData<List<Movie>> {
+    fun getPopularMovies(page: Int): LiveData<List<MovieOutline>> {
         return map(movieRepository.getPopular(page)) { movieList ->
             movieList?.results?.map {
-                Movie(
+                MovieOutline(
                     it.id,
                     it.title,
                     it.overview,

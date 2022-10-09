@@ -1,20 +1,25 @@
 package com.savi.portadecinema.ui.home
 
+import android.content.Intent
+import android.telecom.Call.Details
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import com.savi.portadecinema.R
-import com.savi.portadecinema.models.Movie
+import com.savi.portadecinema.models.MovieOutline
+import com.savi.portadecinema.ui.details.DetailsActivity
 
-class MovieAdapter(private val movies: List<Movie>) :
+class MovieAdapter(private val movies: List<MovieOutline>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieOutline) {
             val textViewTitle = view.findViewById<TextView>(R.id.movie_card_title)
             val textViewOverview = view.findViewById<TextView>(R.id.movie_card_overview)
             val textViewRating = view.findViewById<TextView>(R.id.movie_card_rating)
@@ -29,6 +34,15 @@ class MovieAdapter(private val movies: List<Movie>) :
                     .centerCrop()
                     .into(imageViewPoster)
             }
+
+            val card = view.findViewById<MaterialCardView>(R.id.card_movie)
+            card.setOnClickListener { onClick(movie) }
+        }
+
+        private fun onClick(movie: MovieOutline) {
+            val intent = Intent(view.context, DetailsActivity::class.java)
+            intent.putExtra(DetailsActivity.TAG_MOVIE_ID, movie.id)
+            view.context.startActivity(intent)
         }
     }
 

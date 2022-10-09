@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.DetailsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/details_poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:foreground="@drawable/poster_gradient"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/details_poster_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+
+        <TextView
+            android:id="@+id/details_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_big"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            app:fontFamily="sans-serif"
+            app:layout_constraintBottom_toTopOf="@id/details_genres_textview"
+            app:layout_constraintEnd_toStartOf="@+id/details_favorite_checkbox"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constrainedWidth="true"
+            tools:text="O Poderoso Chefão: Um titulo longo pra caramba" />
+
+        <TextView
+            android:id="@+id/details_genres_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_big"
+            android:textAllCaps="true"
+            android:textColor="@color/default_gray"
+            android:textFontWeight="500"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@id/details_poster_guideline"
+            app:layout_constraintEnd_toStartOf="@id/details_favorite_checkbox"
+            app:layout_constraintStart_toStartOf="@id/details_title_textview"
+            tools:text="drama • comédia" />
+
+        <CheckBox
+            android:id="@+id/details_favorite_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_big"
+            android:layout_marginTop="@dimen/padding_big"
+            android:button="@drawable/sl_favorite"
+            android:textSize="14sp"
+            app:buttonTint="#EC407A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/details_title_textview"
+            app:layout_constraintTop_toTopOf="@id/details_title_textview" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/details_poster_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="400dp" />
+
+        <TextView
+            android:id="@+id/details_overview_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_big"
+            android:text="Sinopse"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_poster_guideline" />
+
+        <TextView
+            android:id="@+id/details_overview_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_big"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_overview_title"
+            tools:text="@tools:sample/lorem/random" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

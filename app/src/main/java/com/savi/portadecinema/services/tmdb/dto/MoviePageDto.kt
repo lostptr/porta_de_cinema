@@ -1,8 +1,8 @@
-package com.savi.portadecinema.services.tmdb.models
+package com.savi.portadecinema.services.tmdb.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieList(
+data class MoviePageDto(
     @SerializedName("page")
     val page: Int,
     @SerializedName("total_pages")
@@ -10,5 +10,5 @@ data class MovieList(
     @SerializedName("total_results")
     val totalResults: Int,
     @SerializedName("results")
-    val results: List<Movie>
+    val results: List<MovieDto>
 )

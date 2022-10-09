@@ -17,6 +17,11 @@
         android:theme="@style/Theme.PortaDeCinema"
         tools:targetApi="33">
         <activity
+            android:name=".ui.details.DetailsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true">
             <intent-filter>
