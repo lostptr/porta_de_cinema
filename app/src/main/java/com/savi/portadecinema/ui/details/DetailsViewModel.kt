@@ -1,26 +1,54 @@
 package com.savi.portadecinema.ui.details
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.savi.portadecinema.models.MovieDetails
-import com.savi.portadecinema.models.MovieOutline
 import com.savi.portadecinema.repositories.MovieRepository
+import com.savi.portadecinema.services.tmdb.TmdbService
+import com.savi.portadecinema.services.tmdb.dto.MovieDetailsDto
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailsViewModel(private val movieRepository: MovieRepository) : ViewModel() {
-    fun getDetails(movieId: Int): LiveData<MovieDetails> {
-        return Transformations.map(movieRepository.getDetails(movieId)) { details ->
-            details?.let {
-                MovieDetails(
-                    it.id,
-                    it.title,
-                    it.overview,
-                    it.voteAvg,
-                    "https://image.tmdb.org/t/p/original/${it.backdropPath}",
-                    it.genres.map { g -> g.name },
-                    false
-                )
-            }
+
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+
+    private val _details = MutableStateFlow(MovieDetails(0, "", "", 0f, "", listOf(), false))
+    val details: StateFlow<MovieDetails> = _details
+
+    fun loadDetails(movieId: Int) {
+        viewModelScope.launch(dispatcher) {
+            movieRepository.getDetails(movieId).enqueue(object : Callback<MovieDetailsDto> {
+                override fun onResponse(
+                    call: Call<MovieDetailsDto>,
+                    response: Response<MovieDetailsDto>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.apply {
+                            _details.value = MovieDetails(
+                                id,
+                                title,
+                                overview,
+                                voteAvg,
+                                TmdbService.getImageFullPath(backdropPath),
+                                genres.map { g -> g.name },
+                                false
+                            )
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieDetailsDto>, t: Throwable) {
+                    Log.e(DetailsViewModel::class.java.name, "Erro ao recuperar o filme selecionado (id: $movieId")
+                }
+            })
         }
     }
 }

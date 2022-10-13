@@ -1,21 +1,21 @@
 package com.savi.portadecinema.ui.home
 
 import android.content.Intent
-import android.telecom.Call.Details
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.savi.portadecinema.R
+import com.savi.portadecinema.helpers.MovieOutlineDiff
 import com.savi.portadecinema.models.MovieOutline
 import com.savi.portadecinema.ui.details.DetailsActivity
 
-class MovieAdapter(private val movies: List<MovieOutline>) :
+class MovieAdapter(private var movies: List<MovieOutline>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -58,4 +58,13 @@ class MovieAdapter(private val movies: List<MovieOutline>) :
     }
 
     override fun getItemCount(): Int = movies.size
+
+    fun update(newMovies: List<MovieOutline>) {
+        val callback = MovieOutlineDiff(movies, newMovies)
+        val diff = DiffUtil.calculateDiff(callback)
+        diff.dispatchUpdatesTo(this)
+        movies = newMovies
+    }
+
+    fun append(newMovies: List<MovieOutline>) = update(movies + newMovies)
 }

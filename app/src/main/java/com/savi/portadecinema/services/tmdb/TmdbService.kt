@@ -18,10 +18,9 @@ interface TmdbService {
     fun getMovieDetails(@Path("id") id: Int): Call<MovieDetailsDto>
 
     companion object {
-        const val apikey = "67175cb48e9814a9bc2b95df0baa4f84"
-        const val language = "pt-BR"
-
-        fun getInstance() = service
+        private const val apikey = "67175cb48e9814a9bc2b95df0baa4f84"
+        private const val language = "pt-BR"
+        private const val imageBasePath = "https://image.tmdb.org/t/p/"
 
         private val service by lazy {
             val created = Retrofit.Builder()
@@ -31,5 +30,11 @@ interface TmdbService {
 
             created.create(TmdbService::class.java)
         }
+
+        fun getInstance() = service
+
+        fun getImageFullPath(relativePath: String, size: String = "original") =
+           "$imageBasePath$size/$relativePath"
+
     }
 }

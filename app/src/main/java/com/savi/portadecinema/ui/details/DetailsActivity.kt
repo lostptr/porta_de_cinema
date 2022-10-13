@@ -1,12 +1,10 @@
 package com.savi.portadecinema.ui.details
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.savi.portadecinema.databinding.ActivityDetailsBinding
 import com.savi.portadecinema.helpers.setFullscreen
@@ -33,18 +31,25 @@ class DetailsActivity : AppCompatActivity() {
                 DetailsViewModelFactory(MovieRepository(TmdbService.getInstance()))
             ).get(DetailsViewModel::class.java)
 
-        loadDetails()
+        setObservers()
     }
 
-    private fun loadDetails() {
-        val id = intent.getIntExtra(TAG_MOVIE_ID, 0)
-        if (id != 0) {
-            viewModel.getDetails(id).observe(this) { movie ->
-                load(movie)
+    private fun setObservers() {
+        // On Resume
+        lifecycleScope.launchWhenResumed {
+            viewModel.details.collect {details ->
+               load(details)
             }
         }
-        else {
-            Log.e("PORTA DE CINEMA", "Id não pode ser zero.")
+
+        // On Create
+        lifecycleScope.launchWhenCreated {
+            val id = intent.getIntExtra(TAG_MOVIE_ID, 0)
+            if (id != 0) {
+                viewModel.loadDetails(id)
+            } else {
+                Log.e(DetailsActivity::class.java.name, "Id não pode ser zero.")
+            }
         }
     }
 
