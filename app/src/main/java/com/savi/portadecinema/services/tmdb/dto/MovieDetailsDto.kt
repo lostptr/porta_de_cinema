@@ -1,6 +1,8 @@
 package com.savi.portadecinema.services.tmdb.dto
 
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDate
+import java.util.Date
 
 data class MovieDetailsDto(
     @SerializedName("id")
@@ -14,5 +16,9 @@ data class MovieDetailsDto(
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("vote_average")
-    val voteAvg: Float
+    val voteAvg: Float,
+    @SerializedName("release_date")
+    val releaseDate: LocalDate,
+    @SerializedName("runtime")
+    val runtimeMin: Int
 )

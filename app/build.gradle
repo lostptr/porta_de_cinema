@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.savi.portadecinema"
-        minSdk 23
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -33,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.savi.portadecinema'
 }
 
 dependencies {

@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.savi.portadecinema.databinding.ActivityDetailsBinding
+import com.savi.portadecinema.helpers.CustomFormatting
 import com.savi.portadecinema.helpers.setFullscreen
 import com.savi.portadecinema.models.MovieDetails
 import com.savi.portadecinema.repositories.MovieRepository
 import com.savi.portadecinema.services.tmdb.TmdbService
+import java.time.format.DateTimeFormatter
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -37,8 +39,8 @@ class DetailsActivity : AppCompatActivity() {
     private fun setObservers() {
         // On Resume
         lifecycleScope.launchWhenResumed {
-            viewModel.details.collect {details ->
-               load(details)
+            viewModel.details.collect { details ->
+                load(details)
             }
         }
 
@@ -54,17 +56,23 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun load(movie: MovieDetails) {
-        with(binding) {
-            detailsTitleTextview.text = movie.title
-            detailsOverviewTextview.text = movie.overview
-            detailsGenresTextview.text = movie.genres.joinToString(separator = " • ")
-            detailsFavoriteCheckbox.isChecked = movie.isFavorite
-        }
+        if (movie.id != 0) {
+            with(binding) {
+                detailsTitleTextview.text = movie.title
+                detailsOverviewTextview.text = movie.overview
+                detailsGenresTextview.text = movie.genres.joinToString(separator = " • ")
+                detailsFavoriteCheckbox.isChecked = movie.isFavorite
+                detailsReleaseTextview.text =
+                    CustomFormatting.format(movie.releaseDate, "dd/MM/yyyy")
+                detailsRatingTextview.text = "%.1f".format(movie.rating)
+                detailsDurationTextview.text = CustomFormatting.formatDuration(movie.duration)
+            }
 
-        Glide.with(this)
-            .load(movie.poster)
-            .centerCrop()
-            .into(binding.detailsPoster)
+            Glide.with(this)
+                .load(movie.poster)
+                .centerCrop()
+                .into(binding.detailsPoster)
+        }
     }
 
     companion object {
