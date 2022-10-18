@@ -1,5 +1,7 @@
 package com.savi.portadecinema.models
 
+import java.time.LocalDate
+
 data class MovieDetails(
     val id: Int,
     val title: String,
@@ -7,5 +9,7 @@ data class MovieDetails(
     val rating: Float,
     val poster: String,
     val genres: List<String>,
+    val releaseDate: LocalDate,
+    val duration: Int,
     val isFavorite: Boolean,
 )

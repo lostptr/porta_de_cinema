@@ -15,12 +15,14 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 class DetailsViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
-    private val _details = MutableStateFlow(MovieDetails(0, "", "", 0f, "", listOf(), false))
+    private val _details =
+        MutableStateFlow(MovieDetails(0, "", "", 0f, "", listOf(), LocalDate.MIN, 0, false))
     val details: StateFlow<MovieDetails> = _details
 
     fun loadDetails(movieId: Int) {
@@ -39,6 +41,8 @@ class DetailsViewModel(private val movieRepository: MovieRepository) : ViewModel
                                 voteAvg,
                                 TmdbService.getImageFullPath(backdropPath),
                                 genres.map { g -> g.name },
+                                releaseDate,
+                                runtimeMin,
                                 false
                             )
                         }
@@ -46,7 +50,10 @@ class DetailsViewModel(private val movieRepository: MovieRepository) : ViewModel
                 }
 
                 override fun onFailure(call: Call<MovieDetailsDto>, t: Throwable) {
-                    Log.e(DetailsViewModel::class.java.name, "Erro ao recuperar o filme selecionado (id: $movieId")
+                    Log.e(
+                        DetailsViewModel::class.java.name,
+                        "Erro ao recuperar o filme selecionado (id: $movieId) ${t.message}"
+                    )
                 }
             })
         }

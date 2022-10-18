@@ -1,5 +1,6 @@
 package com.savi.portadecinema.services.tmdb
 
+import com.google.gson.*
 import com.savi.portadecinema.services.tmdb.dto.MovieDetailsDto
 import com.savi.portadecinema.services.tmdb.dto.MoviePageDto
 import retrofit2.Call
@@ -8,6 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.lang.reflect.Type
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 interface TmdbService {
 
@@ -25,16 +29,32 @@ interface TmdbService {
         private val service by lazy {
             val created = Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(getConverter()))
                 .build()
 
             created.create(TmdbService::class.java)
         }
 
-        fun getInstance() = service
+        private fun getConverter() = GsonBuilder()
+            .registerTypeAdapter(LocalDate::class.java, object : JsonDeserializer<LocalDate> {
+                override fun deserialize(
+                    json: JsonElement?,
+                    typeOfT: Type?,
+                    context: JsonDeserializationContext?
+                ): LocalDate {
+                    return LocalDate.parse(
+                        json?.asString,
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    )
+                }
+            })
+            .create()
+
+
+        fun getInstance(): TmdbService = service
 
         fun getImageFullPath(relativePath: String, size: String = "original") =
-           "$imageBasePath$size/$relativePath"
+            "$imageBasePath$size/$relativePath"
 
     }
 }
