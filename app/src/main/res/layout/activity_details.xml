@@ -4,13 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#00FFFFFF"
     tools:context=".ui.details.DetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_marginTop="48dp"
+            android:padding="@dimen/padding_big"
+            android:id="@+id/details_back_button"
+            android:background="#00000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="?attr/homeAsUpIndicator"
+            android:drawableTint="@color/white"
+            android:elevation="1dp"
+            android:foregroundTint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/details_poster"
@@ -22,8 +37,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:contentDescription="Poster do filme" />
 
         <TextView
             android:id="@+id/details_title_textview"
@@ -59,9 +74,12 @@
             android:id="@+id/details_favorite_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_big"
             android:layout_marginEnd="@dimen/padding_big"
             android:button="@drawable/sl_favorite"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:textSize="14sp"
             app:buttonTint="#EC407A"
             app:layout_constraintBottom_toBottomOf="@id/details_title_textview"

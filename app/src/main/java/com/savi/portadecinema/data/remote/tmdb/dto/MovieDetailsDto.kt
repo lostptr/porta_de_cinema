@@ -1,4 +1,4 @@
-package com.savi.portadecinema.services.tmdb.dto
+package com.savi.portadecinema.data.remote.tmdb.dto
 
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
@@ -13,6 +13,8 @@ data class MovieDetailsDto(
     val overview: String,
     @SerializedName("genres")
     val genres: List<GenreDto>,
+    @SerializedName("poster_path")
+    val posterPath: String,
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("vote_average")

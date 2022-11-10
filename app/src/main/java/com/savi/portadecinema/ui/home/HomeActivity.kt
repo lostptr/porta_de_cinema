@@ -1,20 +1,13 @@
 package com.savi.portadecinema.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.FragmentActivity
+import com.google.android.material.tabs.TabLayoutMediator
 import com.savi.portadecinema.databinding.ActivityHomeBinding
-import com.savi.portadecinema.helpers.PaginationManager
-import com.savi.portadecinema.repositories.MovieRepository
-import com.savi.portadecinema.services.tmdb.TmdbService
 
-
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,46 +15,17 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel =
-            ViewModelProvider(
-                this, HomeViewModelFactory(MovieRepository(TmdbService.getInstance()))
-            )[HomeViewModel::class.java]
-
-        binding.recyclerViewMovies.adapter = MovieAdapter(listOf())
-
-        setObservers()
-        addListeners()
-        loadNextPage() // Carregar filmes pela primeira vez.
+        setupPagerViewer()
     }
 
-    private fun setObservers() {
-        lifecycleScope.launchWhenResumed {
-            viewModel.movies.collect { movies ->
-                if (movies.isNotEmpty()) {
-                    binding.recyclerViewMovies.adapter?.let {
-                        (it as MovieAdapter).append(movies)
-                    }
-                }
-            }
+    private fun setupPagerViewer() {
+        val pageAdapter = HomePagerAdapter(this)
+        with(binding) {
+            homePageViewer.adapter = pageAdapter
+            TabLayoutMediator(homeTab, homePageViewer) { tab, position ->
+                tab.text = pageAdapter.getTitle(position)
+            }.attach()
         }
     }
 
-    private fun addListeners() {
-        addScrollListener()
-    }
-
-    private fun addScrollListener() {
-        // Sabemos que a API retorna 20 filmes por página.
-        // Queremos começar a carregar os próximos quando o usuário já tiver rolado por 15 filmes.
-        val pagination = PaginationManager(20, 9) {
-            Log.i("SCROLL_TEST", "pagination manager -> reload trigger")
-            loadNextPage()
-        }
-
-        binding.recyclerViewMovies.addOnScrollListener(pagination)
-    }
-
-    private fun loadNextPage() {
-        viewModel.loadNextMoviePage()
-    }
 }

@@ -1,4 +1,4 @@
-package com.savi.portadecinema.services.tmdb.dto
+package com.savi.portadecinema.data.remote.tmdb.dto
 
 import com.google.gson.annotations.SerializedName
 

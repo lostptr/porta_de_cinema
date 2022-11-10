@@ -1,19 +1,22 @@
-package com.savi.portadecinema.ui.home
+package com.savi.portadecinema.ui.popular
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.savi.portadecinema.data.remote.tmdb.TmdbService
+import com.savi.portadecinema.data.remote.tmdb.dto.MoviePageDto
 import com.savi.portadecinema.models.MovieOutline
-import com.savi.portadecinema.repositories.MovieRepository
-import com.savi.portadecinema.services.tmdb.TmdbService
-import com.savi.portadecinema.services.tmdb.dto.MoviePageDto
-import kotlinx.coroutines.*
+import com.savi.portadecinema.repositories.IMovieRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val movieRepository: MovieRepository) : ViewModel() {
+class PopularViewModel(private val movieRepository: IMovieRepository) : ViewModel() {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 

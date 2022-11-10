@@ -1,4 +1,4 @@
-package com.savi.portadecinema.ui.home
+package com.savi.portadecinema.ui.popular
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.savi.portadecinema.R
-import com.savi.portadecinema.helpers.MovieOutlineDiff
+import com.savi.portadecinema.utils.MovieOutlineDiff
 import com.savi.portadecinema.models.MovieOutline
 import com.savi.portadecinema.ui.details.DetailsActivity
 
-class MovieAdapter(private var movies: List<MovieOutline>) :
-    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class PopularMovieAdapter(private var movies: List<MovieOutline>) :
+    RecyclerView.Adapter<PopularMovieAdapter.PopularMovieViewHolder>() {
 
-    inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class PopularMovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: MovieOutline) {
             val textViewTitle = view.findViewById<TextView>(R.id.movie_card_title)
             val textViewOverview = view.findViewById<TextView>(R.id.movie_card_overview)
@@ -46,14 +46,14 @@ class MovieAdapter(private var movies: List<MovieOutline>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMovieViewHolder {
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.movie_list_item, parent, false)
-        return MovieViewHolder(view)
+        return PopularMovieViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PopularMovieViewHolder, position: Int) {
         holder.bind(movies[position])
     }
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Porta de Cinema</string>
+    <string name="fragment_popular_title">Populares</string>
+    <string name="fragment_favorite_title">Favoritos</string>
 </resources>

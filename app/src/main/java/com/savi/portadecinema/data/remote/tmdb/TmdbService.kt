@@ -1,8 +1,8 @@
-package com.savi.portadecinema.services.tmdb
+package com.savi.portadecinema.data.remote.tmdb
 
 import com.google.gson.*
-import com.savi.portadecinema.services.tmdb.dto.MovieDetailsDto
-import com.savi.portadecinema.services.tmdb.dto.MoviePageDto
+import com.savi.portadecinema.data.remote.tmdb.dto.MovieDetailsDto
+import com.savi.portadecinema.data.remote.tmdb.dto.MoviePageDto
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
