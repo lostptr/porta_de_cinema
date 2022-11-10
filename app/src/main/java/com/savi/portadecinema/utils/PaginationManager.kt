@@ -1,4 +1,4 @@
-package com.savi.portadecinema.helpers
+package com.savi.portadecinema.utils
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

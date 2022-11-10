@@ -1,14 +1,37 @@
 package com.savi.portadecinema.repositories
 
-import com.savi.portadecinema.services.tmdb.TmdbService
-import com.savi.portadecinema.services.tmdb.dto.MovieDetailsDto
-import com.savi.portadecinema.services.tmdb.dto.MoviePageDto
-import retrofit2.Call
+import com.savi.portadecinema.data.local.dao.MovieDao
+import com.savi.portadecinema.data.local.entities.MovieEntity
+import com.savi.portadecinema.data.remote.tmdb.TmdbService
+import com.savi.portadecinema.models.MovieDetails
 
-class MovieRepository(private val tmdbService: TmdbService) {
-    fun getPopular(page: Int = 1): Call<MoviePageDto>
-        = tmdbService.getPopularMovies(page)
+class MovieRepository(private val tmdbService: TmdbService, private val dao: MovieDao) :
+    IMovieRepository {
 
-    fun getDetails(movieId: Int): Call<MovieDetailsDto>
-        = tmdbService.getMovieDetails(movieId)
+    override fun getPopular(page: Int) = tmdbService.getPopularMovies(page)
+
+    override fun getDetails(movieId: Int) = tmdbService.getMovieDetails(movieId)
+
+    override fun getFavorites() = dao.getAll()
+
+    override suspend fun saveAsFavorite(movie: MovieDetails) =
+        dao.insert(with(movie) {
+            MovieEntity(
+                id = 0,
+                tmdbId = id,
+                title = title,
+                overview = overview,
+                rating = rating,
+                duration = duration,
+                genres = genres.joinToString(","),
+                releaseDate = releaseDate.toString(),
+                poster = poster,
+                backdrop = backdrop
+            )
+        })
+
+    override suspend fun removeFavorite(movieId: Int) = dao.delete(movieId)
+
+    override suspend fun checkIsFavorite(movieId: Int) = dao.checkIsFavorite(movieId)
+
 }

@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.savi.portadecinema.R
-import com.savi.portadecinema.helpers.setFullscreen
 import com.savi.portadecinema.ui.home.HomeActivity
+import com.savi.portadecinema.utils.setFullscreen
 
 class SplashActivity : AppCompatActivity() {
 
@@ -23,6 +23,5 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 3000)
-
     }
 }

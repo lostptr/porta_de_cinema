@@ -1,4 +1,4 @@
-package com.savi.portadecinema.helpers
+package com.savi.portadecinema.utils
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

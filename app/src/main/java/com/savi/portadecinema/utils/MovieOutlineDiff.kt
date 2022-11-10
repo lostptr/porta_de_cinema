@@ -1,4 +1,4 @@
-package com.savi.portadecinema.helpers
+package com.savi.portadecinema.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.savi.portadecinema.models.MovieOutline
