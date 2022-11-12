@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatDelegate
 import com.savi.portadecinema.R
 import com.savi.portadecinema.ui.home.HomeActivity
 import com.savi.portadecinema.utils.setFullscreen

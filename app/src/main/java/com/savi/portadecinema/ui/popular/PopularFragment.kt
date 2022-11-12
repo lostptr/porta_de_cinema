@@ -23,7 +23,7 @@ class PopularFragment : Fragment() {
     ): View {
         binding = FragmentPopularBinding.inflate(inflater)
 
-        binding.recyclerViewMoviesB.adapter = PopularMovieAdapter(listOf())
+        binding.recyclerViewMovies.adapter = PopularMovieAdapter(listOf())
 
         setObservers()
         addListeners()
@@ -34,10 +34,12 @@ class PopularFragment : Fragment() {
 
     private fun setObservers() {
         lifecycleScope.launchWhenResumed {
+            startLoading()
             viewModel.movies.collect { movies ->
                 if (movies.isNotEmpty()) {
-                    binding.recyclerViewMoviesB.adapter?.let {
+                    binding.recyclerViewMovies.adapter?.let {
                         (it as PopularMovieAdapter).append(movies)
+                        stopLoading()
                     }
                 }
             }
@@ -56,10 +58,21 @@ class PopularFragment : Fragment() {
             loadNextPage()
         }
 
-        binding.recyclerViewMoviesB.addOnScrollListener(pagination)
+        binding.recyclerViewMovies.addOnScrollListener(pagination)
     }
 
     private fun loadNextPage() {
         viewModel.loadNextMoviePage()
+    }
+
+    private fun startLoading() {
+        binding.recyclerViewMovies.visibility = View.GONE
+        binding.popularShimmerLayout.showShimmer(true)
+    }
+
+    private fun stopLoading() {
+        binding.popularShimmerLayout.stopShimmer()
+        binding.popularShimmerLayout.visibility = View.INVISIBLE
+        binding.recyclerViewMovies.visibility = View.VISIBLE
     }
 }

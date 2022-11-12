@@ -1,6 +1,5 @@
 package com.savi.portadecinema.ui.favorites
 
-import android.graphics.Movie
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.savi.portadecinema.data.local.entities.MovieEntity

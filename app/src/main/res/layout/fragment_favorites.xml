@@ -7,6 +7,32 @@
     android:background="@color/default_gray"
     tools:context=".ui.favorites.FavoritesFragment">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/favorites_shimmer_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/movie_list_placeholder" />
+
+            <include layout="@layout/movie_list_placeholder" />
+
+            <include layout="@layout/movie_list_placeholder" />
+
+            <include layout="@layout/movie_list_placeholder" />
+
+            <include layout="@layout/movie_list_placeholder" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_favorites"
         android:layout_width="0dp"

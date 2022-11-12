@@ -1,6 +1,7 @@
 package com.savi.portadecinema.ui.home
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.savi.portadecinema.databinding.ActivityHomeBinding

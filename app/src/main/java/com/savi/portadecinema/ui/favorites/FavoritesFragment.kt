@@ -29,11 +29,22 @@ class FavoritesFragment : Fragment() {
 
     private fun setObservers() {
         lifecycleScope.launchWhenResumed {
-            viewModel.favoriteMovies().collect {movies ->
+            startLoading()
+            viewModel.favoriteMovies().collect { movies ->
                 binding.recyclerViewFavorites.adapter = FavoriteMovieAdapter(movies)
+                stopLoading()
             }
         }
     }
 
+    private fun startLoading() {
+        binding.recyclerViewFavorites.visibility = View.GONE
+        binding.favoritesShimmerLayout.showShimmer(true)
+    }
 
+    private fun stopLoading() {
+        binding.favoritesShimmerLayout.stopShimmer()
+        binding.favoritesShimmerLayout.visibility = View.INVISIBLE
+        binding.recyclerViewFavorites.visibility = View.VISIBLE
+    }
 }
